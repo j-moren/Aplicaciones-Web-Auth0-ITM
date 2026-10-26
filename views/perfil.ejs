@@ -1,0 +1,186 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Modificar Datos - Portal ITM</title>
+    <!-- Mantenemos la misma fuente profesional -->
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600&display=swap" rel="stylesheet">
+    <style>
+        body {
+            font-family: 'Inter', sans-serif;
+            background-color: #eef2f9; /* Mismo fondo azul claro */
+            margin: 0;
+            padding: 20px;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            min-height: 100vh;
+            color: #333;
+        }
+
+        .form-card {
+            background-color: #ffffff;
+            padding: 40px;
+            border-radius: 12px;
+            box-shadow: 0 10px 25px rgba(0, 51, 102, 0.1);
+            width: 100%;
+            max-width: 500px;
+            border-top: 5px solid #003366;
+        }
+
+        h2 {
+            color: #003366;
+            text-align: center;
+            margin-top: 0;
+            margin-bottom: 10px;
+            font-size: 22px;
+        }
+
+        .subtitle {
+            text-align: center;
+            color: #666;
+            font-size: 14px;
+            margin-bottom: 30px;
+        }
+
+        /* Mensaje de éxito */
+        .alert-success {
+            background-color: #d4edda;
+            color: #155724;
+            padding: 12px;
+            border-radius: 8px;
+            margin-bottom: 20px;
+            text-align: center;
+            font-size: 14px;
+            border: 1px solid #c3e6cb;
+        }
+
+        .form-group {
+            margin-bottom: 20px;
+        }
+
+        label {
+            display: block;
+            margin-bottom: 8px;
+            color: #444;
+            font-weight: 600;
+            font-size: 14px;
+        }
+
+        input, select {
+            width: 100%;
+            padding: 12px;
+            border: 1px solid #ccc;
+            border-radius: 8px;
+            box-sizing: border-box;
+            font-family: 'Inter', sans-serif;
+            font-size: 15px;
+            transition: border-color 0.3s;
+        }
+
+        input:focus, select:focus {
+            outline: none;
+            border-color: #0056b3;
+            box-shadow: 0 0 0 3px rgba(0, 86, 179, 0.1);
+        }
+
+        .btn-group {
+            display: flex;
+            gap: 15px;
+            margin-top: 30px;
+        }
+
+        .btn {
+            flex: 1;
+            padding: 14px;
+            border-radius: 8px;
+            font-weight: 600;
+            font-size: 15px;
+            cursor: pointer;
+            text-align: center;
+            text-decoration: none;
+            transition: all 0.3s ease;
+            border: none;
+            box-sizing: border-box;
+        }
+
+        .btn-save {
+            background-color: #0056b3;
+            color: white;
+        }
+
+        .btn-save:hover {
+            background-color: #004494;
+        }
+
+        .btn-cancel {
+            background-color: transparent;
+            color: #666;
+            border: 2px solid #ccc;
+        }
+
+        .btn-cancel:hover {
+            background-color: #f8f9fa;
+            border-color: #999;
+        }
+    </style>
+</head>
+<body>
+
+    <div class="form-card">
+        <h2>Modificar mis datos</h2>
+        <p class="subtitle">Actualiza tu información personal en el sistema</p>
+
+        <!-- Alerta de éxito (se muestra después de guardar) -->
+        <% if (typeof success !== 'undefined' && success === 'true') { %>
+            <div class="alert-success">
+                ✅ ¡Datos actualizados correctamente en Auth0!
+            </div>
+        <% } %>
+
+        <form action="/perfil" method="POST">
+            
+            <div class="form-group">
+                <label for="tipo_documento">Tipo de Documento</label>
+                <!-- Usamos un select para que se vea más profesional, prellenado con el valor actual -->
+                <select name="tipo_documento" id="tipo_documento" required>
+                    <option value="" disabled <%= !metadata.tipo_documento ? 'selected' : '' %>>Seleccione una opción</option>
+                    <option value="CC" <%= metadata.tipo_documento === 'CC' ? 'selected' : '' %>>Cédula de Ciudadanía (CC)</option>
+                    <option value="CE" <%= metadata.tipo_documento === 'CE' ? 'selected' : '' %>>Cédula de Extranjería (CE)</option>
+                    <option value="TI" <%= metadata.tipo_documento === 'TI' ? 'selected' : '' %>>Tarjeta de Identidad (TI)</option>
+                    <option value="PP" <%= metadata.tipo_documento === 'PP' ? 'selected' : '' %>>Pasaporte (PP)</option>
+                </select>
+            </div>
+
+            <div class="form-group">
+                <label for="numero_documento">Número de Documento</label>
+                <input type="text" name="numero_documento" id="numero_documento" 
+                       value="<%= metadata.numero_documento || '' %>" 
+                       placeholder="Ej. 1010101010" required>
+            </div>
+
+            <div class="form-group">
+                <label for="direccion">Dirección de Residencia</label>
+                <input type="text" name="direccion" id="direccion" 
+                       value="<%= metadata.direccion || '' %>" 
+                       placeholder="Ej. Calle 50 # 20-10" required>
+            </div>
+
+            <div class="form-group">
+                <label for="telefono">Teléfono de Contacto</label>
+                <input type="tel" name="telefono" id="telefono" 
+                       value="<%= metadata.telefono || '' %>" 
+                       placeholder="Ej. 300 123 4567" required>
+            </div>
+
+            <div class="btn-group">
+                <a href="/" class="btn btn-cancel">Cancelar</a>
+                <button type="submit" class="btn btn-save">Guardar Datos</button>
+            </div>
+
+        </form>
+    </div>
+
+</body>
+</html>

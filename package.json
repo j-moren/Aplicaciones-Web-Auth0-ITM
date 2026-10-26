@@ -1,0 +1,19 @@
+{
+  "name": "auth0-express-webapp-sample",
+  "scripts": {
+    "start": "node tools/check-port-and-start.cjs",
+    "ensure-env": "node tools/ensure-env.cjs"
+  },
+  "dependencies": {
+    "axios": "^1.20.0",
+    "dotenv": "^16.6.1",
+    "ejs": "^7.0.2",
+    "escape-html": "^1.0.3",
+    "express": "^4.19.2",
+    "express-openid-connect": "^2.19.4"
+  },
+  "devDependencies": {
+    "detect-port": "^2.1.0",
+    "js-yaml": "^4.1.0"
+  }
+}

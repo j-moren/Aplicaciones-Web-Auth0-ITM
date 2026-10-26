@@ -3,6 +3,7 @@
 **Estudiantes:** Jonathan Moreno Acosta y Julissa Castrillón Ríos
 
 **Asignatura:** Aplicaciones y Servicios Web
+
 **Actividad:** Integración de Auth0 con Node.js y Express
 
 ## Descripción del Proyecto
